@@ -1,7 +1,7 @@
 // Uzupełnij poniższe dane swoimi informacjami
 const demoBar = {
   enabled: true,
-  note: "Wersja poglądowa strony internetowej",
+  note: "Wersja poglądowa — treści i dane są przykładowe",
   agencyName: "Addigital",
   agencyUrl: "https://www.addigital.pl/",
   email: "aleksydobrodziej@gmail.com",
