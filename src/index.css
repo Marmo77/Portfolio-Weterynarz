@@ -1,0 +1,128 @@
+/*
+  Kroje pisma NIE są importowane tutaj — ładuje je <link> w index.html,
+  którego adres pochodzi z site.theme.fontsUrl (plugin siteMeta).
+  Import w CSS wracałby do sztywnej listy krojów i psuł motyw per klient.
+*/
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  /* Ciemne sekcje (sterowane z site.ts -> theme.ts) */
+  --color-dark: var(--dark);
+  --color-dark-surface: var(--dark-surface);
+  --color-dark-foreground: var(--dark-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-family-sans);
+  --font-display: var(--font-family-display);
+}
+
+@layer base {
+  :root {
+    /* Warm Off-White Background */
+    --background: oklch(0.97 0.01 85);
+    /* Dark Charcoal Text for readability */
+    --foreground: oklch(14.355% 0.00176 197.472);
+
+    /* White Cards */
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.2 0.02 260);
+
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.2 0.02 260);
+
+    /* Kolor marki — nadpisywany z site.theme.colors.primary */
+    --primary: oklch(0.62 0.13 205);
+    --primary-foreground: oklch(0.99 0 0);
+
+    /* Light Grey/Beige for secondary elements */
+    --secondary: oklch(0.92 0.02 85);
+    --secondary-foreground: oklch(0.2 0.02 260);
+
+    --muted: oklch(0.94 0.01 85);
+    --muted-foreground: oklch(0.5 0.02 260);
+
+    --accent: oklch(0.92 0.03 85);
+    --accent-foreground: oklch(0.2 0.02 260);
+
+    --destructive: oklch(0.45 0.15 25);
+    --destructive-foreground: oklch(0.98 0 0);
+
+    /* Softer borders */
+    --border: oklch(0.88 0.01 85);
+    --input: oklch(0.88 0.01 85);
+    --ring: rgb(222, 124, 0);
+
+    /* Rounder, friendlier corners */
+    --radius: 1rem;
+
+    /* Domyślne wartości (nadpisywane w runtime przez applyTheme z site.ts) */
+    --dark: #101820;
+    --dark-surface: #1a2530;
+    --dark-foreground: #eef3f7;
+    --font-family-sans: "Inter", sans-serif;
+    --font-family-display: "Outfit", sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    scroll-behavior: smooth;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  /* Ukrywa pasek przewijania (np. mobilny przełącznik kategorii menu) */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

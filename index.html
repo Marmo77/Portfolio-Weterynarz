@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="%SITE_LANG%">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+    Tytuł i opis są wstrzykiwane przy buildzie z src/data/site.ts
+    (plugin siteMeta w vite.config.ts). Nie wpisuj ich tu ręcznie.
+  -->
+  <title>%SITE_TITLE%</title>
+  <meta name="description" content="%SITE_DESCRIPTION%" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!--
+    Adres Google Fonts pochodzi z src/data/site.ts (theme.fontsUrl) i jest
+    wstrzykiwany przez plugin siteMeta. Dzięki temu zmiana krojów pod klienta
+    to jedna linia w site.ts, a nie edycja dwóch plików.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="%SITE_FONTS%" rel="stylesheet" />
+
+  <!-- Strona demonstracyjna — celowo bez indeksowania. -->
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+
+<body
+  class="bg-background text-foreground antialiased selection:bg-primary selection:text-primary-foreground">
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
