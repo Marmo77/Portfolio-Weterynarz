@@ -8,6 +8,7 @@ import { site } from "./data/site";
 // Lazy load routed pages
 const Home = lazy(() => import("./components/Home/Home"));
 const Gallery = lazy(() => import("./components/Gallery/Gallery"));
+const Prywatnosc = lazy(() => import("./pages/Prywatnosc"));
 
 const App: React.FC = () => {
   return (
@@ -28,6 +29,14 @@ const App: React.FC = () => {
             element={
               <Layout>
                 <Gallery />
+              </Layout>
+            }
+          />
+          <Route
+            path="/polityka-prywatnosci"
+            element={
+              <Layout>
+                <Prywatnosc />
               </Layout>
             }
           />
