@@ -1,17 +1,11 @@
 /**
  * =============================================================================
- *  SITE.TS — Gabinet Weterynaryjny Maciej Tyszka, Gryfino
+ *  SITE.TS — Gabinet Weterynaryjny Pogodno, Szczecin (marka fikcyjna)
  *  Kategoria: Uslugi (archetyp „Karta") · Profil: weterynarz · Motyw: morski
  * =============================================================================
- *  ŹRÓDŁA DANYCH
- *  Kontakt (adres, telefon, e-mail, link do Map) — lead ID 41 z
- *  `research/leady-firmy-tracker.xlsx`. Te pola są realne i sprawdzone.
- *
- *  DANE DO POTWIERDZENIA PRZED WYSŁANIEM KLIENTOWI
- *  Godziny przyjęć i wszystkie ceny w `offer` to wartości poglądowe, ustawione
- *  na poziomie typowym dla gabinetu w powiecie gryfińskim (2026). Gabinet nie
- *  publikuje cennika ani grafiku — nie mieliśmy skąd ich wziąć. W rozmowie
- *  z klientem traktujemy je jako „przykładowe wypełnienie", nie jako jego ofertę.
+ *  Wszystkie dane — nazwa, adres, telefon, e-mail, cennik, godziny — są w
+ *  całości zmyślone na potrzeby portfolio. Nie odpowiadają żadnej istniejącej
+ *  firmie. Adres wskazuje dzielnicę (Pogodno, Szczecin) bez realnej ulicy klienta.
  * =============================================================================
  */
 
@@ -49,18 +43,25 @@ export interface GalleryPhoto {
   category: string;
 }
 
+export interface CareItem {
+  icon: string;
+  title: string;
+  text: string;
+  variant?: "lead" | "accent";
+}
+
 export const site = {
   // ---------------------------------------------------------------------------
   // MARKA
   // ---------------------------------------------------------------------------
   brand: {
-    name: "Gabinet Tyszka",
-    nameSuffix: "Weterynarz Gryfino",
-    legalName: "Gabinet Weterynaryjny Maciej Tyszka",
+    name: "Gabinet Pogodno",
+    nameSuffix: "Weterynarz Szczecin",
+    legalName: "Gabinet Weterynaryjny Pogodno",
     logoFull: "/logo-mark.svg",
     logoMark: "/logo-mark.svg",
     blurb:
-      "Gabinet weterynaryjny w Gryfinie. Profilaktyka, diagnostyka i zabiegi " +
+      "Gabinet weterynaryjny w Szczecinie. Profilaktyka, diagnostyka i zabiegi " +
       "dla psów, kotów i małych zwierząt domowych.",
   },
 
@@ -68,12 +69,11 @@ export const site = {
   // SEO / TYTUŁY
   // ---------------------------------------------------------------------------
   seo: {
-    title: "Gabinet Tyszka — gabinet weterynaryjny w Gryfinie",
-    titleTemplate: "%s | Gabinet Tyszka",
+    title: "Gabinet Pogodno — gabinet weterynaryjny w Szczecinie",
+    titleTemplate: "%s | Gabinet Pogodno",
     description:
-      "Gabinet weterynaryjny Maciej Tyszka w Gryfinie, ul. Krasińskiego 82. " +
-      "Szczepienia, diagnostyka, zabiegi chirurgiczne i wizyty kontrolne. " +
-      "Umów wizytę telefonicznie.",
+      "Gabinet weterynaryjny Pogodno w Szczecinie. Szczepienia, diagnostyka, " +
+      "zabiegi chirurgiczne i wizyty kontrolne. Umów wizytę telefonicznie.",
     lang: "pl",
   },
 
@@ -100,19 +100,18 @@ export const site = {
   },
 
   // ---------------------------------------------------------------------------
-  // KONTAKT — dane realne (lead ID 41)
+  // KONTAKT — dane fikcyjne
   // ---------------------------------------------------------------------------
   contact: {
     address: {
-      street: "ul. Krasińskiego 82/U-20",
-      city: "Gryfino",
-      zip: "74-100",
-      full: "ul. Krasińskiego 82/U-20, 74-100 Gryfino",
-      googleMapsUrl:
-        "https://maps.google.com/?q=Gabinet+Weterynaryjny+Tyszka+Gryfino+Krasinskiego",
+      street: "ul. Ku Słońcu 45",
+      city: "Szczecin",
+      zip: "71-047",
+      full: "ul. Ku Słońcu 45, 71-047 Szczecin",
+      googleMapsUrl: "https://www.google.com/maps?q=Szczecin+Pogodno",
     },
-    phone: "+48 607 664 430",
-    email: "maciejtyszka@wp.pl",
+    phone: "+48 515 668 204",
+    email: "kontakt@gabinetpogodno.pl",
   },
 
   // ---------------------------------------------------------------------------
@@ -128,15 +127,47 @@ export const site = {
   },
 
   // ---------------------------------------------------------------------------
-  // UDOGODNIENIA
+  // ZAKRES OPIEKI — czym gabinet realnie dysponuje, nie tylko czym się zajmuje
   // ---------------------------------------------------------------------------
-  features: [
-    "Umawianie telefoniczne",
-    "Gabinet zabiegowy",
-    "Diagnostyka na miejscu",
-    "Krótkie terminy",
-    "Nagłe przypadki poza kolejnością",
-  ],
+  care: {
+    eyebrow: "Możliwości gabinetu",
+    heading: "Zakres opieki pod jednym dachem",
+    subtitle:
+      "Od rejestracji po zabieg — większość spraw załatwisz w jednej wizycie, " +
+      "bez kierowania w inne miejsce.",
+    items: [
+      {
+        icon: "Activity",
+        title: "Diagnostyka na miejscu",
+        text:
+          "USG, RTG i badania krwi wykonujemy w gabinecie, bez kierowania do " +
+          "zewnętrznego laboratorium. Wynik badania krwi zwykle tego samego dnia, " +
+          "zdjęcie RTG od razu z opisem.",
+        variant: "lead",
+      },
+      {
+        icon: "Siren",
+        title: "Nagłe przypadki poza kolejnością",
+        text: "Zadzwoń przed przyjazdem — przyjmiemy poza kolejką, w godzinach pracy gabinetu.",
+        variant: "accent",
+      },
+      {
+        icon: "Scissors",
+        title: "Gabinet zabiegowy",
+        text: "Drobne zabiegi, szycie ran i opatrunki wykonujemy na miejscu, bez umawiania w innej placówce.",
+      },
+      {
+        icon: "PhoneCall",
+        title: "Umawianie telefoniczne",
+        text: "Rejestracja pod telefonem — rozmawiasz z osobą, która zna grafik gabinetu, zamiast klikać w formularz online.",
+      },
+      {
+        icon: "Clock",
+        title: "Krótkie terminy",
+        text: "Na wizyty planowe umawiamy zwykle w ciągu kilku dni, nie tygodni.",
+      },
+    ] as CareItem[],
+  },
 
   // ---------------------------------------------------------------------------
   // LINKI ZEWNĘTRZNE — gabinet nie prowadzi rezerwacji online ani profili
@@ -155,6 +186,7 @@ export const site = {
   nav: [
     { label: "Start", id: "start" },
     { label: "O nas", id: "story" },
+    { label: "Zakres opieki", id: "care" },
     { label: "Cennik", id: "offer" },
     { label: "Galeria", path: "/galeria" },
     { label: "Kontakt", id: "contact" },
@@ -170,7 +202,7 @@ export const site = {
   // TEKSTY SEKCJI
   // ---------------------------------------------------------------------------
   hero: {
-    titleLines: ["Gabinet weterynaryjny", "w Gryfinie"],
+    titleLines: ["Gabinet weterynaryjny", "w Szczecinie"],
     subtitle:
       "Opieka weterynaryjna dla psów, kotów i małych zwierząt — profilaktyka, " +
       "diagnostyka i zabiegi w jednym miejscu.",
@@ -533,9 +565,8 @@ export const site = {
     findUsTitle: "Znajdź nas",
     hoursTitle: "Przyjmujemy",
     legalLinks: [
-      { label: "Polityka Prywatności", href: "#" },
-      { label: "Regulamin", href: "#" },
-      { label: "Cookies", href: "#" },
+      { label: "Polityka Prywatności", href: "#/polityka-prywatnosci" },
+      { label: "Cookies", href: "#/polityka-prywatnosci" },
     ],
     credit: { prefix: "Strona stworzona przez", label: "Addigital" },
   },

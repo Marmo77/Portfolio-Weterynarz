@@ -1,6 +1,6 @@
 // Uzupełnij poniższe dane swoimi informacjami
 const demoBar = {
-  enabled: true,
+  enabled: false,
   note: "Wersja poglądowa — treści i dane są przykładowe",
   agencyName: "Addigital",
   agencyUrl: "https://www.addigital.pl/",
