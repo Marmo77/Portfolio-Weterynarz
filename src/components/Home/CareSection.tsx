@@ -49,21 +49,25 @@ const CareSection = () => {
                 key={item.title}
                 className={
                   isLead
-                    ? "md:col-span-2 rounded-[2rem] bg-card border border-border p-8 md:p-10 flex flex-col justify-center"
+                    ? "group md:col-span-2 rounded-[2rem] bg-card border border-border p-8 md:p-10 flex flex-col justify-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30"
                     : isAccent
-                      ? "rounded-[2rem] bg-primary text-primary-foreground p-8 md:p-10 flex flex-col justify-center"
-                      : "rounded-[2rem] bg-card border border-border p-8 flex flex-col justify-center"
+                      ? "group rounded-[2rem] bg-primary text-primary-foreground p-8 md:p-10 flex flex-col justify-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/30"
+                      : "group rounded-[2rem] bg-card border border-border p-8 flex flex-col justify-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30"
                 }
               >
                 <Icon
-                  className={isAccent ? "w-8 h-8 mb-4" : "w-7 h-7 mb-4 text-primary"}
+                  className={
+                    isAccent
+                      ? "w-8 h-8 mb-4 transition-transform duration-300 group-hover:scale-110"
+                      : "w-7 h-7 mb-4 text-primary transition-transform duration-300 group-hover:scale-110"
+                  }
                   strokeWidth={1.5}
                 />
                 <h3
                   className={
                     isAccent
                       ? "font-display text-xl mb-2"
-                      : "font-display text-xl text-foreground mb-2"
+                      : "font-display text-xl text-foreground mb-2 transition-colors duration-300 group-hover:text-primary"
                   }
                 >
                   {item.title}

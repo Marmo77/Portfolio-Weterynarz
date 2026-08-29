@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./components/Layout/Navbar";
 import Footer from "./components/Layout/Footer";
 import { Analytics } from "@vercel/analytics/react";
-import { DemoBar } from "./components/Home/DemoBar";
+import { DemoBar, demoBar } from "./components/Home/DemoBar";
+import { cn } from "./lib/utils";
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -49,8 +50,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     // pb-14 rezerwuje miejsce pod DemoBar, który jest `fixed bottom-0`
-    // — bez tego pasek trwale zasłania dół stopki.
-    <div className="min-h-screen pb-14 bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground">
+    // — bez tego pasek trwale zasłania dół stopki. Warunkowe: gdy
+    // `demoBar.enabled` jest false, ten sam odstęp zostawał pusty i było
+    // widać jasny pasek `bg-background` pod stopką — bez paska nie ma
+    // czego zasłaniać, więc nie rezerwujemy miejsca.
+    <div
+      className={cn(
+        "min-h-screen bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground",
+        demoBar.enabled && "pb-14",
+      )}
+    >
       <Navbar
         isScrolled={isScrolled || forceActiveNavbar}
         mobileMenuOpen={mobileMenuOpen}

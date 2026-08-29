@@ -1,5 +1,5 @@
 // Uzupełnij poniższe dane swoimi informacjami
-const demoBar = {
+export const demoBar = {
   enabled: false,
   note: "Wersja poglądowa — treści i dane są przykładowe",
   agencyName: "Addigital",
