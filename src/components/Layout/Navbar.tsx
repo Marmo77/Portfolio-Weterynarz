@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useLayoutEffect, useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
@@ -19,6 +19,8 @@ const Navbar: React.FC<NavbarProps> = ({
   handleNavigation,
 }) => {
   const headerRef = useRef<HTMLElement>(null);
+  const [activeId, setActiveId] = useState("");
+  const location = useLocation();
 
   // Publikuje rzeczywistą wysokość navbara jako zmienną CSS, żeby elementy
   // "sticky" (np. pasek kategorii menu) mogły się pod nią chować bez
@@ -43,6 +45,34 @@ const Navbar: React.FC<NavbarProps> = ({
       el.removeEventListener("transitionend", setVar);
     };
   }, [isScrolled]);
+
+  // Podświetla w nawigacji sekcję aktualnie widoczną pod navbarem —
+  // nie tylko tę, do której prowadzi ostatnio kliknięty link.
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+
+    const sections = site.nav
+      .filter((item): item is typeof item & { id: string } => Boolean(item.id))
+      .map((item) => document.getElementById(item.id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    const headerHeight = headerRef.current?.getBoundingClientRect().height ?? 80;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const topMost = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (topMost) setActiveId(topMost.target.id);
+      },
+      { rootMargin: `-${headerHeight + 20}px 0px -55% 0px`, threshold: 0 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [location.pathname, isScrolled]);
 
   return (
     <header
@@ -88,11 +118,16 @@ const Navbar: React.FC<NavbarProps> = ({
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-10">
           {site.nav.map((item) => {
+            const isActive = item.id
+              ? location.pathname === "/" && item.id === activeId
+              : item.path === location.pathname;
             const linkClass = cn(
-              "text-base font-normal transition-colors hover:text-primary bg-transparent border-none cursor-pointer",
-              isScrolled
-                ? "text-foreground/70"
-                : "text-white/90 hover:text-white",
+              "text-base font-medium transition-colors hover:text-primary bg-transparent border-none cursor-pointer",
+              isActive
+                ? "text-primary"
+                : isScrolled
+                  ? "text-foreground/70"
+                  : "text-white/90 hover:text-white",
             );
             return item.path ? (
               <Link key={item.label} to={item.path} className={linkClass}>
@@ -113,7 +148,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <Button
             onClick={() => handleNavigation(site.navCta.targetId)}
             className={cn(
-              "group relative overflow-hidden rounded-full h-auto px-7 py-3 text-base font-medium shadow-none transition-colors duration-300 w-[190px]",
+              "group relative overflow-hidden rounded-full h-auto px-5 py-2.5 text-sm font-medium shadow-none transition-colors duration-300 w-[165px]",
               isScrolled
                 ? "bg-primary text-primary-foreground hover:bg-primary/90"
                 : "bg-white text-foreground hover:bg-white hover:text-black border-transparent",
@@ -124,8 +159,8 @@ const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div className="absolute inset-0 z-10 flex items-center justify-center transition-transform duration-500 translate-y-[150%] group-hover:translate-y-0">
               <Phone className="w-4 h-4 mr-2" />
-              <span className="whitespace-nowrap text-base">
-                {site.contact.phone}
+              <span className="whitespace-nowrap text-sm">
+                {site.contact.phone.replace(/^\+48\s*/, "")}
               </span>
             </div>
           </Button>
