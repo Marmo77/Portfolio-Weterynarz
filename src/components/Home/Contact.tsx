@@ -203,24 +203,30 @@ const Contact = () => {
               <p className="text-sm text-white/40 mb-2 font-display tracking-wide uppercase">
                 {r.directContactLabel}
               </p>
-              <div className="flex md:items-start items-center flex-col gap-1 text-xl">
-                <div className="flex items-center gap-2 group">
+              <div className="flex md:items-start items-center flex-col gap-4 text-xl">
+                <a
+                  href={`tel:${site.contact.phone.replace(/\s+/g, "")}`}
+                  className="flex w-full items-center gap-2 border-b border-white/10 pb-4 group"
+                >
                   <Phone className="w-5 h-5 group-hover:text-primary transition-colors" />
-                  <p className=" font-bold text-white">
+                  <p className="font-bold text-white group-hover:text-primary transition-colors">
                     {site.contact.phone}
                   </p>
-                </div>
-                <div className="flex items-center gap-2 group">
+                </a>
+                <a
+                  href={`mailto:${site.contact.email}`}
+                  className="flex w-full items-center gap-2 border-b border-white/10 pb-4 group"
+                >
                   <Mail className="w-5 h-5 group-hover:text-primary transition-colors" />
-                  <p className=" font-bold text-white transition-colors">
+                  <p className="font-bold text-white group-hover:text-primary transition-colors">
                     {site.contact.email}
                   </p>
-                </div>
+                </a>
                 <a
                   href={site.contact.address.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 group"
+                  className="flex w-full items-center gap-2 border-b border-white/10 pb-4 group"
                 >
                   <MapPin className="w-5 h-5 text-white group-hover:text-primary transition-colors" />
                   <p className="font-bold text-white group-hover:text-primary transition-colors">
